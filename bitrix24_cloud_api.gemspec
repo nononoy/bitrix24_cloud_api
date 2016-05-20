@@ -6,12 +6,12 @@ require 'bitrix24_cloud_api/version'
 Gem::Specification.new do |spec|
   spec.name          = "bitrix24_cloud_api"
   spec.version       = Bitrix24CloudApi::VERSION
-  spec.authors       = ["nononoy"]
+  spec.authors       = ["Viacheslav Gruzdov"]
   spec.email         = ["lucky-@mail.ru"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Bitrix24 REST API wrapper (for only cloud version)"
+  spec.description   = ""
+  spec.homepage      = ""
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
