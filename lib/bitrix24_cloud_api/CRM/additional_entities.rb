@@ -4,8 +4,8 @@ module Bitrix24CloudApi
       class << self
         undef_method :add, :delete, :update
 
-        def set(client)
-          resource_url(client, __method__)
+        def set(client, query = {})
+          client.make_post_request(resource_url(client, __method__), query)
         end
       end
     end
@@ -15,7 +15,7 @@ module Bitrix24CloudApi
         undef_method :fields
 
         def types(client)
-          resource_url(client, __method__)
+          client.make_get_request(resource_url(client, __method__), query)
         end
       end
     end
@@ -25,7 +25,7 @@ module Bitrix24CloudApi
         undef_method :delete, :fields, :get
 
         def set(client)
-          resource_url(client, __method__)
+          client.make_post_request(resource_url(client, __method__), query)
         end
       end
     end

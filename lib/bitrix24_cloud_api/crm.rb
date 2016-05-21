@@ -2,11 +2,18 @@ module Bitrix24CloudApi
 
   class Crm < Base
 
-    METHODS = [:add, :delete, :get, :list, :update, :fields]
+   [:add, :delete, :update].each do |action|
+     define_singleton_method(action) do |client, query = {}|
+       client.make_post_request(resource_url(client, action), query)
+     end
+   end
 
-      METHODS.each do |each|
-        define_singleton_method(each) { |client| resource_url(client, action = each) }
-      end
+
+   [:get, :list, :fields].each do |action|
+     define_singleton_method(action) do |client, query = {}|
+       client.make_get_request(resource_url(client, action), query)
+     end
+   end
   end
 end
 
