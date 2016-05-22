@@ -13,7 +13,7 @@ module Bitrix24CloudApi
       @client_secret = attrs[:client_secret]
       @redirect_uri = attrs[:redirect_uri]
       @scope = attrs[:scope]
-      if @client_id.length > 0 && @client_secret.length > 0
+      if @client_id && @client_secret
         @oauth2client = OAuth2::Client.new(@client_id, @client_secret, :site => api_endpoint)
       end
     end
@@ -23,10 +23,14 @@ module Bitrix24CloudApi
     end
 
     def authorize_url
+      return nil unless oauth2client
+
       oauth2client.auth_code.authorize_url(:redirect_uri => redirect_uri)
     end
 
     def get_access_token(code)
+      return nil unless oauth2client
+
       auth_token_query = {}
       auth_token_query[:client_id] = client_id
       auth_token_query[:client_secret] = client_secret
@@ -47,6 +51,8 @@ module Bitrix24CloudApi
     end
 
     def refresh_token(refresh_token_hash)
+      return nil unless oauth2client
+
       auth_token_query = {}
       auth_token_query[:client_id] = client_id
       auth_token_query[:client_secret] = client_secret
@@ -67,24 +73,48 @@ module Bitrix24CloudApi
 
     def make_get_request(path, params = {})
       params.merge!(auth: access_token)
-      HTTParty.get([path, to_query(params)].join("?"))
+      response = HTTParty.get([path, to_query(params)].join("?"))
+      check_response(response)
     end
 
     def make_post_request(path, params = {})
       params.merge!(auth: access_token)
-      HTTParty.post([path, to_query(params)].join("?"))
+      response = HTTParty.post([path, to_query(params)].join("?"), params)
+      check_response(response)
+    end
+
+    def check_response(response)
+      if response.success?
+        response.parsed_response["result"]
+      else
+        response.parsed_response.merge(code: response.code)
+      end
+    end
+
+    def deals
+      Bitrix24CloudApi::CRM::Deal.list(self)
+    end
+
+    def leads
+      Bitrix24CloudApi::CRM::Lead.list(self)
+    end
+
+    def contacts
+      Bitrix24CloudApi::CRM::Contact.list(self)
     end
 
     class << self
 
+=begin
       def create_sample
         Bitrix24CloudApi::Client.new(endpoint: "istattest.bitrix24.ua",
-                                     access_token: "pbx05nscq3opj3m5lrhfvlmkoylwrrlo",
+                                     access_token: "p116vr3jkui36nte8ax57wzqwkzzb927",
                                      scope: "crm",
                                      redirect_uri: "https://istattest.bitrix24.ua",
                                      client_id: "app.57398fd61b13c1.73498508",
                                      client_secret: "f06tTB1ysP4GLMS9AX3os7TcUP0BqMjQgvFgklRpyt7RVyu4BX")
       end
+=end
     end
   end
 end
