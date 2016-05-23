@@ -13,6 +13,7 @@ module Bitrix24CloudApi
       end
 
       def to_query(params)
+        #TODO Add array to_query
         params.to_a.map { |x| "#{CGI.escape(x[0].to_s)}=#{CGI.escape(x[1].to_s)}" }.join("&")
       end
 

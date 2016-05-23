@@ -14,7 +14,7 @@ module Bitrix24CloudApi
       class << self
         undef_method :fields
 
-        def types(client)
+        def types(client, query = {})
           client.make_get_request(resource_url(client, __method__), query)
         end
       end
@@ -24,7 +24,7 @@ module Bitrix24CloudApi
       class << self
         undef_method :delete, :fields, :get
 
-        def set(client)
+        def set(client, query = {})
           client.make_post_request(resource_url(client, __method__), query)
         end
       end
@@ -33,6 +33,16 @@ module Bitrix24CloudApi
     class Communication < Bitrix24CloudApi::Crm
       class << self
         undef_method :add, :delete, :update, :get, :list
+      end
+    end
+
+    class Duplicate < Bitrix24CloudApi::Crm
+      class << self
+        undef_method :add, :delete, :update, :get, :list
+
+        def findbycomm(client, query = {})
+          client.make_get_request(resource_url(client, __method__), query)
+        end
       end
     end
   end

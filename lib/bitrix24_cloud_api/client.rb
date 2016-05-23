@@ -105,16 +105,14 @@ module Bitrix24CloudApi
 
     class << self
 
-=begin
       def create_sample
         Bitrix24CloudApi::Client.new(endpoint: "istattest.bitrix24.ua",
-                                     access_token: "p116vr3jkui36nte8ax57wzqwkzzb927",
+                                     access_token: "0hrz2orpay7om3cp10bfbprvzauuzmb1",
                                      scope: "crm",
                                      redirect_uri: "https://istattest.bitrix24.ua",
                                      client_id: "app.57398fd61b13c1.73498508",
                                      client_secret: "f06tTB1ysP4GLMS9AX3os7TcUP0BqMjQgvFgklRpyt7RVyu4BX")
       end
-=end
     end
   end
 end
