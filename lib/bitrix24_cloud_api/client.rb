@@ -85,7 +85,7 @@ module Bitrix24CloudApi
 
     def check_response(response)
       if response.success?
-        response.parsed_response["result"]
+        response.parsed_response
       else
         response.parsed_response.merge(code: response.code)
       end
