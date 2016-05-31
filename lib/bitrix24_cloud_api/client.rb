@@ -79,7 +79,7 @@ module Bitrix24CloudApi
 
     def make_post_request(path, params = {})
       params.merge!(auth: access_token)
-      response = HTTParty.post([path, to_query(params)].join("?"), params)
+      response = HTTParty.post(path, query: params)
       check_response(response)
     end
 
@@ -107,7 +107,7 @@ module Bitrix24CloudApi
 
       def create_sample
         Bitrix24CloudApi::Client.new(endpoint: "istattest.bitrix24.ua",
-                                     access_token: "0hrz2orpay7om3cp10bfbprvzauuzmb1",
+                                     access_token: "1nrif6uhuqagcu6maqosfyvqxc9wr8zv",
                                      scope: "crm",
                                      redirect_uri: "https://istattest.bitrix24.ua",
                                      client_id: "app.57398fd61b13c1.73498508",
