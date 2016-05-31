@@ -45,6 +45,20 @@ module Bitrix24CloudApi
         end
       end
     end
+
+    class Enum < Bitrix24CloudApi::Crm
+
+      class << self
+        undef_method :add, :delete, :update, :get, :list
+      end
+
+      [:ownertype, :contenttype, :activitytype, :activitypriority, :activitydirection,
+       :activitynotifytype].each do |action|
+        define_singleton_method(action) do |client, query = {}|
+          client.make_get_request(resource_url(client, action), query)
+        end
+      end
+    end
   end
 end
 
