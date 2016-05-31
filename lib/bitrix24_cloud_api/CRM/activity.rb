@@ -4,7 +4,7 @@ module Bitrix24CloudApi
       def self.const_missing(c)
         if :Communication == c
           target_class = Bitrix24CloudApi::CRM.const_get(c)
-          target_class.define_singleton_method(:resource_path) { "crm.activity.#{c.downcase}.fields" }
+          target_class.define_singleton_method(:resource_path) { "crm.activity.#{c.downcase}" }
           target_class
         end
       end
