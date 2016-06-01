@@ -26,7 +26,8 @@ Bitrix24's oauth2 implementation not compatible with *oauth2 gem*, so there is s
     params = { endpoint: api_endpoint,
                client_id: CLIENT_ID,
                client_secret: CLIENT_SECRET,
-               scope: "crm",
+               scope: "crm", [optional]
+               extension: "json", [optional]
                redirect_uri: redirect_uri
     }
     @client = Bitrix24CloudApi::Client.new(params)     
@@ -94,7 +95,7 @@ All models' metods are provided. Second attribute in method call is a hash for b
     params = { fields: {TITLE: title, PHONE: [VALUE: phone, VALUE_TYPE: "WORK"]} }
     Bitrix24CloudApi::CRM::Lead.add(@client, params)
     Bitrix24CloudApi::CRM::Lead.list(@client)
-    Bitrix24CloudApi::CRM::Lead.get(@client, {ID: 1})
+    Bitrix24CloudApi::CRM::Lead.get(@client, ID: 1)
     
     
 ## Development

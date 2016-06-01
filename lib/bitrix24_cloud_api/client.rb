@@ -3,11 +3,13 @@ module Bitrix24CloudApi
   class Client < Base
     require 'oauth2'
 
-    attr_reader :endpoint, :access_token, :redirect_uri, :client_id, :client_secret, :scope, :oauth2client
+    attr_reader :endpoint, :access_token, :redirect_uri, :client_id, :client_secret, :scope, :oauth2client, :extension
     attr_writer :access_token
 
     def initialize(attrs = {})
-      @endpoint =     attrs[:endpoint]
+      puts attrs[:extension]
+      @extension = attrs[:extension] || "json"
+      @endpoint = attrs[:endpoint]
       @access_token = attrs[:access_token]
       @client_id = attrs[:client_id]
       @client_secret = attrs[:client_secret]
@@ -73,7 +75,7 @@ module Bitrix24CloudApi
 
     def make_get_request(path, params = {})
       params.merge!(auth: access_token)
-      response = HTTParty.get([path, to_query(params)].join("?"))
+      response = HTTParty.get(path, query: params)
       check_response(response)
     end
 
