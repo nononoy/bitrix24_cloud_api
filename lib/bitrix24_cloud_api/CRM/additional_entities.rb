@@ -47,7 +47,6 @@ module Bitrix24CloudApi
     end
 
     class Enum < Bitrix24CloudApi::Crm
-
       class << self
         undef_method :add, :delete, :update, :get, :list
       end
