@@ -9,18 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Viacheslav Gruzdov"]
   spec.email         = ["lucky-@mail.ru"]
 
-  spec.summary       = "Bitrix24 REST API wrapper (for only cloud version)"
-  spec.description   = ""
-  spec.homepage      = ""
+  spec.summary       = "Bitrix24 REST API on Ruby"
+  spec.description   = "Bitrix24 REST API wrapper (for only cloud version)"
+  spec.homepage      = "https://github.com/nononoy/bitrix24_cloud_api"
   spec.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
@@ -30,6 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "oauth2", "~> 1.1.0"
+  spec.add_development_dependency "oauth2", "~> 1.1"
   spec.add_development_dependency "httparty", "~> 0.13.7"
 end
