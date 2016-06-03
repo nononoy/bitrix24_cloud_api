@@ -7,7 +7,6 @@ module Bitrix24CloudApi
     attr_writer :access_token
 
     def initialize(attrs = {})
-      puts attrs[:extension]
       @extension = attrs[:extension] || "json"
       @endpoint = attrs[:endpoint]
       @access_token = attrs[:access_token]
@@ -75,6 +74,7 @@ module Bitrix24CloudApi
 
     def make_get_request(path, params = {})
       params.merge!(auth: access_token)
+      puts path
       response = HTTParty.get(path, query: params)
       check_response(response)
     end

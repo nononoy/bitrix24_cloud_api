@@ -9,11 +9,13 @@ module Bitrix24CloudApi
     class << self
 
       def resource_url(client, action)
-        "#{client.api_endpoint + resource_path}.#{action}.#{client.extension}"
+        path = client.api_endpoint
+        path << "#{resource_path}." unless resource_path.empty?
+        path << "#{action}.#{client.extension}"
       end
 
-      def resource_path
-        name.gsub("Bitrix24CloudApi::", "").gsub("::", ".").downcase
+      def resource_path(exact_name = nil)
+        exact_name || name.gsub("Bitrix24CloudApi::", "").gsub("::", ".").downcase
       end
     end
   end

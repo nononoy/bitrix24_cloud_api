@@ -24,4 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "oauth2", "~> 1.1"
   spec.add_development_dependency "httparty", "~> 0.13.7"
+  spec.add_development_dependency "webmock"
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'shoulda-matchers', "~> 2.0"
 end
