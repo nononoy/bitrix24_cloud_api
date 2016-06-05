@@ -43,7 +43,7 @@ module Bitrix24CloudApi
   end
 
   class CommonMethods < Base
-    METHODS_SCOPE = [:methods, :scope, :batch, :access_name, :events, :events_get]
+    METHODS_SCOPE = [:methods, :scope, :batch, :access_name, :events]
 
     METHODS_SCOPE.each do |action|
       define_singleton_method(action) do |client, query = {}|
