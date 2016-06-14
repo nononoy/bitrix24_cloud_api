@@ -4,9 +4,13 @@ module Bitrix24CloudApi
   class Base
     require "httparty"
     extend Forwardable
-    def_delegators 'self.class', :resource_url
+    def_delegators 'self.class', :resource_url, :to_query
 
     class << self
+
+      def to_query(params)
+        params.to_a.map { |x| "#{CGI.escape(x[0].to_s)}=#{CGI.escape(x[1].to_s)}" }.join("&")
+      end
 
       def resource_url(client, action)
         path = client.api_endpoint

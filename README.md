@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/nononoy/bitrix24_cloud_api.svg?branch=master)](https://travis-ci.org/nononoy/bitrix24_cloud_api)
 
-
 # Bitrix24CloudApi
 
 Ruby library for [Bitrix24 REST API](https://dev.1c-bitrix.ru/rest_help/index.php) **(only Cloud version)**.  

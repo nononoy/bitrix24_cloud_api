@@ -26,7 +26,7 @@ module Bitrix24CloudApi
     def authorize_url
       return nil unless oauth2client
 
-      oauth2client.auth_code.authorize_url(:redirect_uri => redirect_uri)
+      oauth2client.auth_code.authorize_url(:redirect_uri => redirect_uri, state: true)
     end
 
     def get_access_token(code)
@@ -74,7 +74,6 @@ module Bitrix24CloudApi
 
     def make_get_request(path, params = {})
       params.merge!(auth: access_token)
-      puts path
       response = HTTParty.get(path, query: params)
       check_response(response)
     end
