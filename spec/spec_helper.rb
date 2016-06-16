@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'bitrix24_cloud_api'
 require 'webmock/rspec'
+
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:example) { @client = Bitrix24CloudApi::Client.new(endpoint: "test.bitrix24.ua",

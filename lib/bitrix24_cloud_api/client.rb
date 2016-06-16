@@ -40,7 +40,6 @@ module Bitrix24CloudApi
       auth_token_query[:redirect_uri] = redirect_uri
       auth_token_path = oauth2client.options[:token_url] + "?#{to_query(auth_token_query)}"
       oauth2client.options[:token_url] = auth_token_path
-
       begin
         token = oauth2client.auth_code.get_token(code, :redirect_uri => redirect_uri)
         token.params.merge({:access_token => token.token,
@@ -79,8 +78,7 @@ module Bitrix24CloudApi
     end
 
     def make_post_request(path, params = {})
-      params.merge!(auth: access_token)
-      response = HTTParty.post(path, query: params)
+      response = HTTParty.post(path, body: params, query: {auth: access_token})
       check_response(response)
     end
 
