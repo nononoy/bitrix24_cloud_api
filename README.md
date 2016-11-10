@@ -53,46 +53,8 @@ it's response contains a hash with refreshed *oauth2 credentials*.
 If you already **have a valid access_token** add it to the client's attributes `@client.update(access_token: access_token)` or create a new client instance `@client = Bitrix24CloudApi::Client.new(access_token: access_token)`. 
       
 ### CRM
-      
-Available models
 
-    * Bitrix24CloudApi::CRM::Activity
-    * Bitrix24CloudApi::CRM::ACTIVITY::Communication
-       
-    * Bitrix24CloudApi::CRM::Company
-    * Bitrix24CloudApi::CRM::COMPANY::Userfield
-    
-    * Bitrix24CloudApi::CRM::Contact
-    * Bitrix24CloudApi::CRM::CONTACT::Userfield  
-    
-    * Bitrix24CloudApi::CRM::Currency
-    * Bitrix24CloudApi::CRM::CURRENCY::Localizations  
-    
-    * Bitrix24CloudApi::CRM::Deal
-    * Bitrix24CloudApi::CRM::DEAL::Userfield  
-    * Bitrix24CloudApi::CRM::DEAL::ProductRows  
-    
-    * Bitrix24CloudApi::CRM::Lead
-    * Bitrix24CloudApi::CRM::LEAD::Userfield
-    * Bitrix24CloudApi::CRM::LEAD::ProductRows
-       
-    * Bitrix24CloudApi::CRM::Quote
-    * Bitrix24CloudApi::CRM::QUOTE::Userfield
-    * Bitrix24CloudApi::CRM::QUOTE::ProductRows
-    
-    * Bitrix24CloudApi::CRM::Localizations
-    * Bitrix24CloudApi::CRM::Product
-    * Bitrix24CloudApi::CRM::ProductRows
-    * Bitrix24CloudApi::CRM::ProductSection
-    * Bitrix24CloudApi::CRM::Userfield   
-    * Bitrix24CloudApi::CRM::Duplicate
-    * Bitrix24CloudApi::CRM::Enum
-    * Bitrix24CloudApi::CRM::Invoice
-    * Bitrix24CloudApi::CRM::InvoiceStatus    
-    * Bitrix24CloudApi::CRM::Communication
-    * Bitrix24CloudApi::CRM::Catalog     
-
-All models' metods are provided. Second attribute in method call is a hash for bitrix24 REST API query. Example:
+All REST API methods are provided. Second attribute in method call is a hash for bitrix24 REST API query. Example:
     
     params = { fields: {TITLE: title, PHONE: [VALUE: phone, VALUE_TYPE: "WORK"]} }
     Bitrix24CloudApi::CRM::Lead.add(@client, params)
