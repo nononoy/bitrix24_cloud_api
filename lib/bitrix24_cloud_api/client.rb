@@ -59,7 +59,7 @@ module Bitrix24CloudApi
       auth_token_query[:client_secret] = client_secret
       auth_token_query[:grant_type] = 'refresh_token'
       auth_token_query[:refresh_token] = refresh_token_hash
-      auth_token_path = "/oauth/token?#{to_query(auth_token_query)}"
+      auth_token_path = "#{B24_OAUTH_ENDPOINT}?#{to_query(auth_token_query)}"
       oauth2client.options[:token_url] = auth_token_path
 
       begin
