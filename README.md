@@ -2,7 +2,7 @@
 
 # Bitrix24CloudApi
 
-Ruby library for [Bitrix24 REST API](https://dev.1c-bitrix.ru/rest_help/index.php) **(only Cloud version)**.  
+Ruby library for [Bitrix24 REST API](https://dev.1c-bitrix.ru/rest_help/index.php).  
 
 ## Installation
 
