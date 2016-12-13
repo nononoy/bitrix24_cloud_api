@@ -3,6 +3,8 @@ module Bitrix24CloudApi
   class Client < Base
     require 'oauth2'
 
+    B24_OAUTH_ENDPOINT = 'https://oauth.bitrix.info/oauth/token'
+
     attr_reader :endpoint, :access_token, :redirect_uri, :client_id, :client_secret, :scope, :oauth2client, :extension
     attr_writer :access_token
 
@@ -36,9 +38,8 @@ module Bitrix24CloudApi
       auth_token_query[:client_id] = client_id
       auth_token_query[:client_secret] = client_secret
       auth_token_query[:grant_type] = "authorization_code"
-      auth_token_query[:scope] = scope
-      auth_token_query[:redirect_uri] = redirect_uri
-      auth_token_path = oauth2client.options[:token_url] + "?#{to_query(auth_token_query)}"
+      auth_token_query[:code] = code
+      auth_token_path = "#{B24_OAUTH_ENDPOINT}?#{to_query(auth_token_query)}"
       oauth2client.options[:token_url] = auth_token_path
       begin
         token = oauth2client.auth_code.get_token(code, :redirect_uri => redirect_uri)
