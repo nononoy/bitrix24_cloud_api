@@ -3,6 +3,8 @@ module Bitrix24CloudApi
   class Client < Base
     require 'oauth2'
 
+    B24_OAUTH_ENDPOINT = 'https://oauth.bitrix.info/oauth/token'
+
     attr_reader :endpoint, :access_token, :redirect_uri, :client_id, :client_secret, :scope, :oauth2client, :extension
     attr_writer :access_token
 
@@ -32,40 +34,37 @@ module Bitrix24CloudApi
     def get_access_token(code)
       return nil unless oauth2client
 
-      auth_token_query = {}
-      auth_token_query[:client_id] = client_id
-      auth_token_query[:client_secret] = client_secret
-      auth_token_query[:grant_type] = "authorization_code"
-      auth_token_query[:scope] = scope
-      auth_token_query[:redirect_uri] = redirect_uri
-      auth_token_path = oauth2client.options[:token_url] + "?#{to_query(auth_token_query)}"
+      auth_token_query = { client_id: client_id,
+                           client_secret: client_secret,
+                           grant_type: 'authorization_code',
+                           code: code }
+      auth_token_path = "#{B24_OAUTH_ENDPOINT}?#{to_query(auth_token_query)}"
       oauth2client.options[:token_url] = auth_token_path
       begin
         token = oauth2client.auth_code.get_token(code, :redirect_uri => redirect_uri)
-        token.params.merge({:access_token => token.token,
-                            :refresh_token => token.refresh_token,
-                            :expires_at => token.expires_at})
+        token.params.merge({ access_token: token.token,
+                             refresh_token: token.refresh_token,
+                             expires_at: token.expires_at })
       rescue OAuth2::Error
         return nil
       end
     end
 
-    def refresh_token(refresh_token_hash)
+    def refresh_token(refresh_token)
       return nil unless oauth2client
 
-      auth_token_query = {}
-      auth_token_query[:client_id] = client_id
-      auth_token_query[:client_secret] = client_secret
-      auth_token_query[:grant_type] = 'refresh_token'
-      auth_token_query[:refresh_token] = refresh_token_hash
-      auth_token_path = "/oauth/token?#{to_query(auth_token_query)}"
+      auth_token_query = { client_id: client_id,
+                           client_secret: client_secret,
+                           grant_type: 'refresh_token',
+                           refresh_token: refresh_token }
+      auth_token_path = "#{B24_OAUTH_ENDPOINT}?#{to_query(auth_token_query)}"
       oauth2client.options[:token_url] = auth_token_path
 
       begin
         token = oauth2client.get_token(auth_token_query)
-        token.params.merge({:access_token => token.token,
-                            :refresh_token => token.refresh_token,
-                            :expires_at => token.expires_at})
+        token.params.merge({ access_token: token.token,
+                             refresh_token: token.refresh_token,
+                             expires_at: token.expires_at })
       rescue OAuth2::Error
         return false
       end

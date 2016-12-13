@@ -4,9 +4,9 @@ describe Bitrix24CloudApi::Client do
 
   def create_client_with_no_data
     @_client = Bitrix24CloudApi::Client.new(endpoint: "test.bitrix24.ua",
-                                          scope: "all",
-                                          extension: "json",
-                                          redirect_uri: "https://test.bitrix24.ua")
+                                            scope: "all",
+                                            extension: "json",
+                                            redirect_uri: "https://test.bitrix24.ua")
   end
 
   describe ".api_endpoint" do
@@ -35,14 +35,10 @@ describe Bitrix24CloudApi::Client do
     end
 
     it "returns oauth2 access_token hash" do
-      stub_request(:post, "https://#{@client.endpoint}/oauth/token?client_id=#{@client.client_id}&" +
+      stub_request(:post, "#{Bitrix24CloudApi::Client::B24_OAUTH_ENDPOINT}?client_id=#{@client.client_id}&" +
                             "client_secret=#{@client.client_secret}&grant_type=authorization_code" +
-                            "&redirect_uri=#{CGI.escape(@client.redirect_uri)}&scope=all").
-          with(:body => {client_id: @client.client_id,
-                         client_secret: @client.client_secret,
-                         code: "sample_code",
-                         grant_type:  "authorization_code",
-                         redirect_uri:  @client.redirect_uri},
+                            "&code=sample_code").
+          with(:body => {},
                :headers => {'Accept'=>'*/*',
                             'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                             'Content-Type'=>'application/x-www-form-urlencoded',
@@ -61,13 +57,10 @@ describe Bitrix24CloudApi::Client do
     end
 
     it "returns oauth2 refreshed_token hash" do
-      stub_request(:post, "https://#{@client.endpoint}/oauth/token?client_id=#{@client.client_id}" +
+      stub_request(:post, "#{Bitrix24CloudApi::Client::B24_OAUTH_ENDPOINT}?client_id=#{@client.client_id}" +
                           "&client_secret=#{@client.client_secret}&grant_type=refresh_token" +
                           "&refresh_token=sample_refresh_token").
-          with(:body => {client_id: @client.client_id,
-                         client_secret: @client.client_secret,
-                         grant_type: "refresh_token",
-                         refresh_token: "sample_refresh_token"},
+          with(:body => {},
                :headers => {'Accept'=>'*/*',
                             'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                             'Content-Type'=>'application/x-www-form-urlencoded',
