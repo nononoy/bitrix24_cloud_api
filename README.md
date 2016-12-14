@@ -50,7 +50,20 @@ To **refresh** oauth2 **access_token** use:
     
 it's response contains a hash with refreshed *oauth2 credentials*.
 
-If you already **have a valid access_token** add it to the client's attributes `@client.update(access_token: access_token)` or create a new client instance `@client = Bitrix24CloudApi::Client.new(access_token: access_token)`. 
+If you already **have a valid access_token** add it to the client's attributes `@client.update(access_token: access_token)` or create a new client instance 
+```
+@client = Bitrix24CloudApi::Client.new(access_token: access_token, endpoint: api_endpoint). 
+```
+      
+### Aliases
+
+```
+B24 == Bitrix24CloudApi
+B24_CRM == Bitrix24CloudApi::CRM
+```
+
+So, `Bitrix24CloudApi::CRM::Lead.add(@client, params)` equals to `B24_CRM::Lead.add(@client, params)`.
+   
       
 ### CRM
 
