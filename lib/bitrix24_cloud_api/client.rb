@@ -72,12 +72,17 @@ module Bitrix24CloudApi
 
     def make_get_request(path, params = {})
       params.merge!(auth: access_token)
-      response = HTTParty.get(path, query: params)
+      response = HTTParty.get(path,
+                              query: params,
+                              query_string_normalizer: ->(query) { Bitrix24CloudApi::HashConversions.to_params(query) })
       check_response(response)
     end
 
     def make_post_request(path, params = {})
-      response = HTTParty.post(path, body: params, query: {auth: access_token})
+      response = HTTParty.post(path,
+                               body: params,
+                               query: { auth: access_token },
+                               query_string_normalizer: ->(query) { Bitrix24CloudApi::HashConversions.to_params(query) })
       check_response(response)
     end
 
